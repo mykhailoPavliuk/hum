@@ -1,2 +1,0 @@
-# the Hum step project
-
