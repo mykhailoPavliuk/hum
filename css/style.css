@@ -54,6 +54,8 @@ a{
 .nav-menu-link{
     color: white;
     font-size: 9px;
+    padding-bottom: 52px;
+    border-bottom: 2px solid transparent;
 }
 .nav-menu-link:after{
     display: block;
@@ -64,13 +66,14 @@ a{
     transition: width .3s ease-in-out
 }
 .nav-menu-link:hover{
+    border-bottom: 2px solid #18cfab;
     color: #18cfab;
 }
-.nav-menu-link:hover:after{
-    width: 1rem;
-    position: absolute;
-    top:120px;
-}
+/*.nav-menu-link:hover:after{*/
+    /*width: 1rem;*/
+    /*position: absolute;*/
+    /*top:120px;*/
+/*}*/
 
 .search-form{
     width: 22px;
@@ -83,7 +86,7 @@ a{
     width: 0;
 
 }
-.search-form:hover:before{
+.search-form:hover{
     width: 130px;
     height: 24px;
     background-position: right;
