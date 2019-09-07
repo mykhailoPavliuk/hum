@@ -1,6 +1,5 @@
 body{
     font-family: "Montserrat", sans-serif;
-    width: 1200px;
     margin: 0 auto;
 }
 a{
@@ -136,7 +135,7 @@ a{
 }
 /*heder ends*/
 .advantages-section{
-    width:1200px;
+    /*width:1200px;*/
     margin: 0 auto;
 }
 .advantages-description{
@@ -200,7 +199,7 @@ a{
     display: flex;
     justify-content: space-around;
 }
-.submenu-link{
+.services-submenu-item{
     font-size: 22px;
     color: rgba(113, 113, 113, 255);
     text-decoration: none;
@@ -213,7 +212,7 @@ a{
     background-color: #f8fcfe;
     margin-bottom: 24px;
 }
-.submenu-link:before{
+.services-submenu-item:before{
     content: "";
     width: 12px;
     height: 12px;
@@ -221,14 +220,14 @@ a{
     transform: rotate(45grad);
     background: transparent;
     position: absolute;
-    top: 1623px;
+    top: 1618px;
     margin-left: 89px;
 }
-.submenu-link.active {
+.services-submenu-item.active {
     color: rgba(255, 255, 255, 255);
     background-color: #18cfab;
 }
-.submenu-link.active:before{
+.services-submenu-item.active:before{
     background: #18cfab;
 }
 .services-wrap{
@@ -294,7 +293,7 @@ a{
 
 }
 
-.work-submenu-link{
+.work-submenu-item{
     font-family: "Montserrat-Regular", sans-serif;
     font-size: 14px;
     color: rgba(113, 113, 113, 255);
@@ -308,7 +307,7 @@ a{
     margin-bottom: 24px;
 }
 
-.work-submenu-link.active{
+.work-submenu-item.active{
     color: rgba(24, 207, 171, 255);
 }
 
@@ -318,10 +317,30 @@ a{
     flex-wrap: wrap;
     margin-bottom: 71px;
 }
+.gallery-item{
+    display:none;
+}
+.active{
+    display: block;
+}
 
 .load-more{
     padding: 25px 21px 25px 51px;
     font-size: 10px;
+    display: none;
+}
+.load-more:before{
+    content: "";
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url('../img/work/Forma 1@1X.png');
+    position: relative;
+    top: 5px;
+    left: -19px;
+}
+.load-more.active{
+    display: inline;
 }
 
 
@@ -421,6 +440,7 @@ a{
 
 .respond-list-item.active{
     display: block;
+    max-width: 1100px;
 }
 
 .item-name{
@@ -456,19 +476,15 @@ a{
 
 .carousel{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .carousel-item{
-    display: flex;
-    margin-right: 36px;
+    transition: 0.3s;
+    position: relative;
+}
 
-}
-.carousel-item:nth-child(1){
-    margin-left: 36px;
-}
-.carousel-item img {
-    margin-top: 50px;
+.carousel-item-img {
     max-width: 70px;
     max-height: 63px;
     border-radius: 60px;
@@ -478,6 +494,7 @@ a{
 }
 
 .carousel-arrow {
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -487,6 +504,6 @@ a{
     font-size: 26px;
     color: white;
 }
-.carousel-item-img.active{
-    margin: 0;
+.carousel-item.active{
+   bottom: 15px;
 }

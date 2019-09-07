@@ -1,60 +1,109 @@
 
-// window.onload = function() {
-//  */
-//     let i = 1;
-//     for (let li of document.querySelectorAll(".carousel-item")) {
-//         li.style.position = 'relative';
-//         li.insertAdjacentHTML('beforeend', `<span style="position:absolute;left:0;top:0">${i}</span>`);
-//         i++;
-//     }
-//
-//     /* конфигурация */
-//     let width = 130; // ширина картинки
-//     let count = 3; // видимое количество изображений
-//
-//     let list = document.querySelector('.carousel');
-//     let listElems = document.querySelectorAll('.carousel-item');
-//
-//     let position = 0; // положение ленты прокрутки
-//
-//     document.querySelector('.left').onclick = function () {
-//         // сдвиг влево
-//         position += width * count;
-//         // последнее передвижение влево может быть не на 3, а на 2 или 1 элемент
-//         position = Math.min(position, 0)
-//         list.style.marginLeft = position + 'px';
-//     };
-//
-//     document.querySelector('.right').onclick = function rightBtn () {
-//         // сдвиг вправо
-//         position -= width * count;
-//         // последнее передвижение вправо может быть не на 3, а на 2 или 1 элемент
-//         position = Math.max(position, -width * (listElems.length - count));
-//         list.style.marginLeft = position + 'px';
-//     };
-// }
-window.onload=function (){
+document.querySelector(".services-submenu").addEventListener("click", function ({target}) {
+    let serviceBtns=[...document.querySelectorAll(".services-submenu-item")];
+    const activeElementIndex = serviceBtns.indexOf(target);
+    let infoSections=[...document.querySelectorAll(".services-wrap")];
+    cleanActiveClass(serviceBtns);
+    cleanActiveClass(infoSections);
+    target.classList.add("active");
+    infoSections[activeElementIndex].classList.add("active")
+});
 
 
-let itemsArr = document.querySelectorAll(".carousel-item-img"), i=0;
+let amountImgToShow = 12;
+document.querySelector(".work-exaples-submenu").addEventListener("click", function ({target}) {
+    let filterBtn=document.querySelector(".work-exaples-submenu").children;
+    let img=[...document.querySelector(".work-examples-gallery").children];
+    addGalleryImeges();
+    let filteredActiveImg=[...document.querySelector(".work-examples-gallery").children].filter(img=>img.dataset.type === target.dataset.type);
+    console.log(filteredActiveImg);
+    cleanActiveClass(filterBtn);
+    cleanActiveClass(img);
+    target.classList.add("active");//постапить курсор поинтер
+    if(filteredActiveImg.length===0){
+        addGalleryImeges()
+    }else {
+        document.querySelector(".load-more").classList.remove("active")
+        for (let img of filteredActiveImg) {
+            img.classList.add("active");
+        }
+
+    }
+});
+
+document.querySelector(".load-more").addEventListener("click", function () {
+    amountImgToShow+=12;
+    addGalleryImeges();
+    console.log(amountImgToShow);
+    if(amountImgToShow>30){
+        document.querySelector(".load-more").style.display="none";
+
+    }
+});
+addGalleryImeges();
+function addGalleryImeges() {
+    let imgToShow = [...document.querySelector(".work-examples-gallery").children].slice(0, amountImgToShow);
+    document.querySelector(".load-more").classList.add("active");
+    for (let image of imgToShow) {
+            image.classList.add("active");
+        }
+}
+
+
+
+// carousel section respond
+
 let leftBtn=document.querySelector("#left");
 let rightBtn=document.getElementById("right");
+let carouselItemsWrapper=document.querySelector(".carousel");
+
+carouselItemsWrapper.addEventListener("click",function ({target}) {
+    let { descrArr, itemsArr } = getSliderItems();
     console.log(itemsArr);
-    console.log(leftBtn);
-console.log(rightBtn);
+    let activeElem = itemsArr.findIndex(item => item===target.parentNode)
+    cleanActiveClass(itemsArr)
+    cleanActiveClass(descrArr)
+    target.parentNode.classList.add("active");
+    descrArr[activeElem].classList.add("active")
+});
+
 
 rightBtn.addEventListener('click', function () {
-    itemsArr[i].classList.remove("active");
-    itemsArr[i+1].classList.add("active");
-    i++;
-    // i>itemsArr.length? i=0:i;
+    let { descrArr, itemsArr } = getSliderItems();
+    let activeElem = itemsArr.findIndex(item => item.classList.contains('active'));
+    cleanActiveClass(itemsArr);
+    cleanActiveClass(descrArr);
+    let nextActiveElem = activeElem===(itemsArr.length-1)? 0: activeElem+1;
+    itemsArr[nextActiveElem].classList.add("active");
+    descrArr[nextActiveElem].classList.add("active")
 });
-
 
 leftBtn.addEventListener('click', function () {
-    itemsArr[i].classList.remove("active");
-    itemsArr[i-1].classList.add("active");
-    i--;
-    // i<0? i=itemsArr.length-1:i;
+   let { descrArr, itemsArr } = getSliderItems();
+   let activeElem = itemsArr.findIndex(item => item.classList.contains('active'));
+    console.log(activeElem);
+    cleanActiveClass(itemsArr);
+    cleanActiveClass(descrArr);
+   let nextActiveElem = activeElem===0? (itemsArr.length-1): activeElem-1;
+    itemsArr[nextActiveElem].classList.add("active")
+    descrArr[nextActiveElem].classList.add("active")
+   //  activeIndex=activeIndex-1;
+
+
+
+    // activeIndex<0? activeIndex=itemsArr.length-1:activeIndex;
 });
+function cleanActiveClass(elementsArr){
+    for(let item of elementsArr){
+        item.classList.remove("active");
+
+    }
 }
+
+function getSliderItems(){
+    return {
+        descrArr: Array.from(document.querySelectorAll(".respond-list-item")),
+        itemsArr: Array.from(document.querySelectorAll(".carousel-item"))
+    };
+}
+
